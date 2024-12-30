@@ -1,0 +1,14 @@
+:host {
+    display: block;
+}
+
+html {
+    background: #fff;
+}
+
+body {
+    background: #dedede;
+    overscroll-behavior-y: contain;
+    overflow: hidden;
+    height: 100vh;
+}

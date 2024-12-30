@@ -1,0 +1,56 @@
+<div class="w-100 main">
+    <div class="table">
+        <nz-table #nzTable nzBordered [nzData]="listOfData" [nzScroll]="{ x: scrollX }">
+            <thead>
+                <tr>
+                    <th nzWidth="60px"></th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let item of nzTable.data">
+
+                    <tr class="editable-row">
+                        <td [nzExpand]="expandSet.has(+item.id)" (nzExpandChange)="onExpandChange(+item.id, $event)"></td>
+
+                        <td *ngIf="!editCache[item.id].edit">
+                            {{item.name}}
+                        </td>
+                        <td *ngIf="editCache[item.id].edit">
+                            <input type="text" nz-input [(ngModel)]="editCache[item.id].data.name" />
+                        </td>
+
+                        <td *ngIf="!editCache[item.id].edit">
+                            {{item.age}}
+                        </td>
+                        <td *ngIf="editCache[item.id].edit">
+                            <input type="text" nz-input [(ngModel)]="editCache[item.id].data.age" />
+                        </td>
+
+                        <td *ngIf="!editCache[item.id].edit">
+                            {{item.address}}
+                        </td>
+                        <td *ngIf="editCache[item.id].edit">
+                            <input type="text" nz-input [(ngModel)]="editCache[item.id].data.address" />
+                        </td>
+
+                        <td *ngIf="!editCache[item.id].edit"><a (click)="startEdit(item.id)">Edit</a></td>
+                        <td *ngIf="editCache[item.id].edit">
+                            <a (click)="saveEdit(item.id)" class="save mr-2">Save</a>
+                            <a (click)="cancelEdit(item.id)">Cancel</a>
+                        </td>
+
+                    </tr>
+
+                    <tr [nzExpand]="expandSet.has(+item.id)">
+                        <span>{{ item.description }}</span>
+                    </tr>
+
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
